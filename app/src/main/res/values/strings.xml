@@ -191,6 +191,26 @@
     <string name="mb_summary">An in kernel replacement for Qualcomms MPDecision. Developed by show-p1984.</string>
     <string name="screen_off_single_core">Screen off Single Core</string>
     <string name="screen_off_single_core_summary">Use only one core when the screen is off.</string>
+    <string name="rev_hotplug">Revactive Hotplug</string>
+    <string name="rev_hotplug_summary">Custom Hotplug Driver</string>
+    <string name="rev_shift_one">Shift One</string>
+    <string name="rev_shift_one_summary">Load for plugging one additional core</string>
+    <string name="rev_shift_all">Shift All</string>
+    <string name="rev_shift_all_summary">Load for turning all cores online</string>
+    <string name="rev_shift_threshold">Shift One Sampling Rate</string>
+    <string name="rev_shift_threshold_summary">Sample time for plugging one core per sampling rate</string>
+    <string name="rev_shift_all_threshold">Shift All Sampling Rate</string>
+    <string name="rev_shift_all_threshold_summary">Sample time for turning all cores per sampling rate</string>
+    <string name="rev_down_shift">Down Shift</string>
+    <string name="rev_down_shift_summary">Load for unplugging one core</string>
+    <string name="rev_down_shift_threshold">Down Shift Sampling Rate</string>
+    <string name="rev_down_shift_threshold_summary">Sample time for unplugging a core per sampling rate</string>
+    <string name="rev_sampling_period">Sampling Rate</string>
+    <string name="rev_sampling_period_summary">Interval between load checks</string>
+    <string name="rev_min_cpu">Min Online Cpu</string>
+    <string name="rev_max_cpu">Max Online_cpu</string>
+    <string name="rev_debug">Debug</string>
+
 
     <!-- GPU -->
     <string name="gpu_2d_cur_freq">GPU 2D Current Frequency</string>

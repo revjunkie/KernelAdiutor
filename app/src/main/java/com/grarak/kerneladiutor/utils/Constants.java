@@ -187,8 +187,25 @@ public interface Constants {
             MAKO_HOTPLUG_LOAD_THRESHOLD, MAKO_HOTPLUG_MAX_LOAD_COUNTER, MAKO_HOTPLUG_MIN_TIME_CPU_ONLINE,
             MAKO_HOTPLUG_TIMER, MAKO_HOTPLUG_SUSPEND_FREQ};
 
+    String REV_HOTPLUG = "/sys/class/misc/revactive_hotplug";
+    String REV_HOTPLUG_ENABLE = "/sys/module/revactive_hotplug/parameters/active";
+    String REV_SHIFT_ONE = "/sys/class/misc/revactive_hotplug/shift_one";
+    String REV_SHIFT_ALL = "/sys/class/misc/revactive_hotplug/shift_all";
+    String REV_SHIFT_ONE_THRESHOLD = "/sys/class/misc/revactive_hotplug/shift_threshold";
+    String REV_SHIFT_ALL_THRESHOLD = "/sys/class/misc/revactive_hotplug/shift_all_threshold";
+    String REV_DOWN_SHIFT = "/sys/class/misc/revactive_hotplug/down_shift";
+    String REV_DOWN_SHIFT_THRESHOLD = "/sys/class/misc/revactive_hotplug/downshift_threshold";
+    String REV_SAMPLING_PERIOD = "/sys/class/misc/revactive_hotplug/sample_time";
+    String REV_MIN_CPU = "/sys/class/misc/revactive_hotplug/min_cpu";
+    String REV_MAX_CPU = "/sys/class/misc/revactive_hotplug/max_cpu";
+    String REV_DEBUG = "/sys/module/revactive_hotplug/parameters/debug";
+
+    String[] REV_HOTPLUG_ARRAY = {REV_HOTPLUG, REV_HOTPLUG_ENABLE, REV_SHIFT_ONE, REV_SHIFT_ALL,
+            REV_SHIFT_ONE_THRESHOLD, REV_SHIFT_ALL_THRESHOLD, REV_DOWN_SHIFT, REV_DOWN_SHIFT_THRESHOLD,
+            REV_SAMPLING_PERIOD, REV_MIN_CPU, REV_MAX_CPU, REV_DEBUG};
+
     String[][] CPU_HOTPLUG_ARRAY = {MPDECISION_ARRAY, INTELLIPLUG_ARRAY, BLU_PLUG_ARRAY, HOTPLUG_MSM_ARRAY,
-            MAKO_HOTPLUG_ARRAY};
+            MAKO_HOTPLUG_ARRAY, REV_HOTPLUG_ARRAY};
 
     // GPU
     String GPU_GENERIC_GOVERNORS = "performance powersave ondemand simple conservative";

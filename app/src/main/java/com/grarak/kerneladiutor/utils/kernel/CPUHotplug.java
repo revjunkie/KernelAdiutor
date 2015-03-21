@@ -42,6 +42,142 @@ public class CPUHotplug implements Constants {
     private static String MSM_HOTPLUG_IO_IS_BUSY_FILE;
     private static String MSM_HOTPLUG_SUSPEND_FREQ_FILE;
 
+    public static void activateRevDebug(boolean active, Context context) {
+        Control.runCommand(active ? "1" : "0", REV_DEBUG, Control.CommandType.GENERIC, context);
+    }
+
+    public static boolean isRevDebug() {
+        return Utils.readFile(REV_DEBUG).equals("1");
+    }
+
+    public static boolean hasRevDebug() {
+        return Utils.existFile(REV_DEBUG);
+    }
+
+    public static void setRevMaxCpu(int value, Context context) {
+        Control.runCommand(String.valueOf(value), REV_MAX_CPU, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getRevMaxCpu() {
+        return Utils.stringToInt(Utils.readFile(REV_MAX_CPU));
+    }
+
+    public static boolean hasRevMaxCpu() {
+        return Utils.existFile(REV_MAX_CPU);
+    }
+
+    public static void setRevMinCpu(int value, Context context) {
+        Control.runCommand(String.valueOf(value), REV_MIN_CPU, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getRevMinCpu() {
+        return Utils.stringToInt(Utils.readFile(REV_MIN_CPU));
+    }
+
+    public static boolean hasRevMinCpu() {
+        return Utils.existFile(REV_MIN_CPU);
+    }
+
+    public static void setRevSamplingPeriod(int value, Context context) {
+        Control.runCommand(String.valueOf(value), REV_SAMPLING_PERIOD, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getRevSamplingPeriod() {
+        return Utils.stringToInt(Utils.readFile(REV_SAMPLING_PERIOD));
+    }
+
+    public static boolean hasRevSamplingPeriod() {
+        return Utils.existFile(REV_SAMPLING_PERIOD);
+    }
+
+    public static void setRevDownShiftThreshold(int value, Context context) {
+        Control.runCommand(String.valueOf(value), REV_DOWN_SHIFT_THRESHOLD, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getRevDownShiftThreshold() {
+        return Utils.stringToInt(Utils.readFile(REV_DOWN_SHIFT_THRESHOLD));
+    }
+
+    public static boolean hasRevDownShiftThreshold() {
+        return Utils.existFile(REV_DOWN_SHIFT_THRESHOLD);
+    }
+
+    public static void setRevDownShift(int value, Context context) {
+        Control.runCommand(String.valueOf(value), REV_DOWN_SHIFT, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getRevDownShift() {
+        return Utils.stringToInt(Utils.readFile(REV_DOWN_SHIFT));
+    }
+
+    public static boolean hasRevDownShift() {
+        return Utils.existFile(REV_DOWN_SHIFT);
+    }
+
+    public static void setRevShiftAllThreshold(int value, Context context) {
+        Control.runCommand(String.valueOf(value), REV_SHIFT_ALL_THRESHOLD, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getRevShiftAllThreshold() {
+        return Utils.stringToInt(Utils.readFile(REV_SHIFT_ALL_THRESHOLD));
+    }
+
+    public static boolean hasRevShiftAllThreshold() {
+        return Utils.existFile(REV_SHIFT_ALL_THRESHOLD);
+    }
+
+    public static void setRevShiftOneThreshold(int value, Context context) {
+        Control.runCommand(String.valueOf(value), REV_SHIFT_ONE_THRESHOLD, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getRevShiftOneThreshold() {
+        return Utils.stringToInt(Utils.readFile(REV_SHIFT_ONE_THRESHOLD));
+    }
+
+    public static boolean hasRevShiftOneThreshold() {
+        return Utils.existFile(REV_SHIFT_ONE_THRESHOLD);
+    }
+
+    public static void setRevShiftAll(int value, Context context) {
+        Control.runCommand(String.valueOf(value), REV_SHIFT_ALL, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getRevShiftAll() {
+        return Utils.stringToInt(Utils.readFile(REV_SHIFT_ALL));
+    }
+
+    public static boolean hasRevShiftAll() {
+        return Utils.existFile(REV_SHIFT_ALL);
+    }
+
+    public static void setRevShiftOne(int value, Context context) {
+        Control.runCommand(String.valueOf(value), REV_SHIFT_ONE, Control.CommandType.GENERIC, context);
+    }
+
+    public static int getRevShiftOne() {
+        return Utils.stringToInt(Utils.readFile(REV_SHIFT_ONE));
+    }
+
+    public static boolean hasRevShiftOne() {
+        return Utils.existFile(REV_SHIFT_ONE);
+    }
+
+    public static void activateRevHotplug(boolean active, Context context) {
+        Control.runCommand(active ? "Y" : "N", REV_HOTPLUG_ENABLE, Control.CommandType.GENERIC, context);
+    }
+
+    public static boolean isRevHotplugEnable() {
+        return Utils.readFile(REV_HOTPLUG_ENABLE).equals("Y");
+    }
+
+    public static boolean hasRevHotplugEnable() {
+        return Utils.existFile(REV_HOTPLUG_ENABLE);
+    }
+
+    public static boolean hasRevHotplug() {
+        return Utils.existFile(REV_HOTPLUG);
+    }
+
     public static void setMakoHotplugSuspendFreq(int value, Context context) {
         Control.runCommand(String.valueOf(value), MAKO_HOTPLUG_SUSPEND_FREQ, Control.CommandType.GENERIC, context);
     }

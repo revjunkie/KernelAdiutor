@@ -98,7 +98,18 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
     private SeekBarCardView.DSeekBarCardView mMakoHotplugTimerCard;
     private PopupCardItem.DPopupCard mMakoSuspendFreqCard;
 
-    @Override
+    private SwitchCompatCardItem.DSwitchCompatCard mRevHotplugEnableCard;
+    private SeekBarCardView.DSeekBarCardView mRevShiftOneCard;
+    private SeekBarCardView.DSeekBarCardView mRevShiftAllCard;
+    private SeekBarCardView.DSeekBarCardView mRevShiftOneThresholdCard;
+    private SeekBarCardView.DSeekBarCardView mRevShiftAllThresholdCard;
+    private SeekBarCardView.DSeekBarCardView mRevDownShiftCard;
+    private SeekBarCardView.DSeekBarCardView mRevDownShiftThresholdCard;
+    private SeekBarCardView.DSeekBarCardView mRevSamplePeriodCard;
+    private SeekBarCardView.DSeekBarCardView mRevMinCpuCard;
+    private SeekBarCardView.DSeekBarCardView mRevMaxCpuCard;
+    private SwitchCompatCardItem.DSwitchCompatCard mRevDebugCard;
+
     public void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
 
@@ -107,6 +118,7 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
         if (CPUHotplug.hasBluPlug()) bluPlugInit();
         if (CPUHotplug.hasMsmHotplug()) msmHotplugInit();
         if (CPUHotplug.hasMakoHotplug()) makoHotplugInit();
+        if (CPUHotplug.hasRevHotplug()) revHotplugInit();
     }
 
     private void mpdecisionInit() {
@@ -875,6 +887,161 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
 
     }
 
+    private void revHotplugInit() {
+        List<DAdapter.DView> views = new ArrayList<>();
+
+        if (CPUHotplug.hasRevHotplugEnable()) {
+            mRevHotplugEnableCard = new SwitchCompatCardItem.DSwitchCompatCard();
+            mRevHotplugEnableCard.setTitle(getString(R.string.rev_hotplug));
+            mRevHotplugEnableCard.setDescription(getString(R.string.rev_hotplug_summary));
+            mRevHotplugEnableCard.setChecked(CPUHotplug.isRevHotplugEnable());
+            mRevHotplugEnableCard.setOnDSwitchCompatCardListener(this);
+
+            views.add(mRevHotplugEnableCard);
+        }
+
+        if (CPUHotplug.hasRevShiftOne()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 101; i++)
+                list.add(i + "%");
+
+            mRevShiftOneCard = new SeekBarCardView.DSeekBarCardView(list);
+            mRevShiftOneCard.setTitle(getString(R.string.rev_shift_one));
+            mRevShiftOneCard.setDescription(getString(R.string.rev_shift_one_summary));
+            mRevShiftOneCard.setProgress(CPUHotplug.getRevShiftOne());
+            mRevShiftOneCard.setOnDSeekBarCardListener(this);
+
+            views.add(mRevShiftOneCard);
+        }
+
+        if (CPUHotplug.hasRevShiftAll()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 101; i++)
+                list.add(i + "%");
+
+            mRevShiftAllCard = new SeekBarCardView.DSeekBarCardView(list);
+            mRevShiftAllCard.setTitle(getString(R.string.rev_shift_all));
+            mRevShiftAllCard.setDescription(getString(R.string.rev_shift_all_summary));
+            mRevShiftAllCard.setProgress(CPUHotplug.getRevShiftAll());
+            mRevShiftAllCard.setOnDSeekBarCardListener(this);
+
+            views.add(mRevShiftAllCard);
+        }
+
+        if (CPUHotplug.hasRevShiftOneThreshold()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 11; i++)
+                list.add(i + " Cycles");
+
+            mRevShiftOneThresholdCard = new SeekBarCardView.DSeekBarCardView(list);
+            mRevShiftOneThresholdCard.setTitle(getString(R.string.rev_shift_threshold));
+            mRevShiftOneThresholdCard.setDescription(getString(R.string.rev_shift_threshold_summary));
+            mRevShiftOneThresholdCard.setProgress(CPUHotplug.getRevShiftOneThreshold());
+            mRevShiftOneThresholdCard.setOnDSeekBarCardListener(this);
+
+            views.add(mRevShiftOneThresholdCard);
+        }
+
+        if (CPUHotplug.hasRevShiftAllThreshold()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 11; i++)
+                list.add(i + " Cycles");
+
+            mRevShiftAllThresholdCard = new SeekBarCardView.DSeekBarCardView(list);
+            mRevShiftAllThresholdCard.setTitle(getString(R.string.rev_shift_all_threshold));
+            mRevShiftAllThresholdCard.setDescription(getString(R.string.rev_shift_all_threshold_summary));
+            mRevShiftAllThresholdCard.setProgress(CPUHotplug.getRevShiftAllThreshold());
+            mRevShiftAllThresholdCard.setOnDSeekBarCardListener(this);
+
+            views.add(mRevShiftAllThresholdCard);
+        }
+
+        if (CPUHotplug.hasRevDownShift()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 26; i++)
+                list.add(i + "%");
+
+            mRevDownShiftCard = new SeekBarCardView.DSeekBarCardView(list);
+            mRevDownShiftCard.setTitle(getString(R.string.rev_down_shift));
+            mRevDownShiftCard.setDescription(getString(R.string.rev_down_shift_summary));
+            mRevDownShiftCard.setProgress(CPUHotplug.getRevDownShift());
+            mRevDownShiftCard.setOnDSeekBarCardListener(this);
+
+            views.add(mRevDownShiftCard);
+        }
+
+        if (CPUHotplug.hasRevDownShiftThreshold()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 101; i++)
+                list.add(i + " Cycles");
+
+            mRevDownShiftThresholdCard = new SeekBarCardView.DSeekBarCardView(list);
+            mRevDownShiftThresholdCard.setTitle(getString(R.string.rev_down_shift_threshold));
+            mRevDownShiftThresholdCard.setDescription(getString(R.string.rev_down_shift_threshold_summary));
+            mRevDownShiftThresholdCard.setProgress(CPUHotplug.getRevDownShiftThreshold());
+            mRevDownShiftThresholdCard.setOnDSeekBarCardListener(this);
+
+            views.add(mRevDownShiftThresholdCard);
+        }
+
+        if (CPUHotplug.hasRevSamplingPeriod()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < 501; i++)
+                list.add(i + "ms");
+
+            mRevSamplePeriodCard = new SeekBarCardView.DSeekBarCardView(list);
+            mRevSamplePeriodCard.setTitle(getString(R.string.rev_sampling_period));
+            mRevSamplePeriodCard.setDescription(getString(R.string.rev_sampling_period_summary));
+            mRevSamplePeriodCard.setProgress(CPUHotplug.getRevSamplingPeriod());
+            mRevSamplePeriodCard.setOnDSeekBarCardListener(this);
+
+            views.add(mRevSamplePeriodCard);
+        }
+
+        if (CPUHotplug.hasRevMinCpu()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i <= CPU.getCoreCount(); i++)
+                list.add(String.valueOf(i));
+
+            mRevMinCpuCard = new SeekBarCardView.DSeekBarCardView(list);
+            mRevMinCpuCard.setTitle(getString(R.string.rev_min_cpu));
+            mRevMinCpuCard.setProgress(CPUHotplug.getRevMinCpu());
+            mRevMinCpuCard.setOnDSeekBarCardListener(this);
+
+            views.add(mRevMinCpuCard);
+        }
+
+        if (CPUHotplug.hasRevMaxCpu()) {
+            List<String> list = new ArrayList<>();
+            for (int i = 1; i <= CPU.getCoreCount(); i++)
+                list.add(String.valueOf(i));
+
+            mRevMaxCpuCard = new SeekBarCardView.DSeekBarCardView(list);
+            mRevMaxCpuCard.setTitle(getString(R.string.rev_max_cpu));
+            mRevMaxCpuCard.setProgress(CPUHotplug.getRevMaxCpu());
+            mRevMaxCpuCard.setOnDSeekBarCardListener(this);
+
+            views.add(mRevMaxCpuCard);
+        }
+
+        if (CPUHotplug.hasRevDebug()) {
+            mRevDebugCard = new SwitchCompatCardItem.DSwitchCompatCard();
+            mRevDebugCard.setTitle(getString(R.string.rev_debug));
+            mRevDebugCard.setChecked(CPUHotplug.isRevDebug());
+            mRevDebugCard.setOnDSwitchCompatCardListener(this);
+
+            views.add(mRevDebugCard);
+        }
+
+        if (views.size() > 0) {
+            DividerCardView.DDividerCard mRevHotplugDividerCard = new DividerCardView.DDividerCard();
+            mRevHotplugDividerCard.setText(getString(R.string.rev_hotplug));
+
+            addView(mRevHotplugDividerCard);
+            addAllViews(views);
+        }
+    }
+
     @Override
     public void onChecked(SwitchCompatCardItem.DSwitchCompatCard dSwitchCompatCard, boolean checked) {
         if (dSwitchCompatCard == mMpdecisionCard)
@@ -901,6 +1068,11 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
             CPUHotplug.activateMsmHotplugIoIsBusy(checked, getActivity());
         else if (dSwitchCompatCard == mMakoHotplugEnableCard)
             CPUHotplug.activateMakoHotplug(checked, getActivity());
+        else if (dSwitchCompatCard == mRevHotplugEnableCard)
+            CPUHotplug.activateRevHotplug(checked, getActivity());
+        else if (dSwitchCompatCard == mRevDebugCard)
+            CPUHotplug.activateRevDebug(checked, getActivity());
+
     }
 
     @Override
@@ -999,6 +1171,24 @@ public class CPUHotplugFragment extends RecyclerViewFragment implements
             CPUHotplug.setMakoHotplugMinTimeCpuOnline(position, getActivity());
         else if (dSeekBarCardView == mMakoHotplugTimerCard)
             CPUHotplug.setMakoHotplugTimer(position, getActivity());
+        else if (dSeekBarCardView == mRevShiftOneCard)
+            CPUHotplug.setRevShiftOne(position, getActivity());
+        else if (dSeekBarCardView == mRevShiftAllCard)
+            CPUHotplug.setRevShiftAll(position, getActivity());
+        else if (dSeekBarCardView == mRevShiftOneThresholdCard)
+            CPUHotplug.setRevShiftOneThreshold(position, getActivity());
+        else if (dSeekBarCardView == mRevShiftAllThresholdCard)
+            CPUHotplug.setRevShiftAllThreshold(position, getActivity());
+        else if (dSeekBarCardView == mRevDownShiftCard)
+            CPUHotplug.setRevDownShift(position, getActivity());
+        else if (dSeekBarCardView == mRevDownShiftThresholdCard)
+            CPUHotplug.setRevDownShiftThreshold(position, getActivity());
+        else if (dSeekBarCardView == mRevSamplePeriodCard)
+            CPUHotplug.setRevSamplingPeriod(position, getActivity());
+        else if (dSeekBarCardView == mRevMinCpuCard)
+            CPUHotplug.setRevMinCpu(position, getActivity());
+        else if (dSeekBarCardView == mRevMaxCpuCard)
+            CPUHotplug.setRevMaxCpu(position, getActivity());
     }
 
 }
